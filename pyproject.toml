@@ -13,24 +13,25 @@ authors = [
     {name = "Aleksa Lukic", email = "aleksalukic92@web.de"},
 ]
 readme = "README.md"
-license = "MIT"
-homepage = "https://github.com/N4r0Bs/ByeByeLogger"
-repository = "https://github.com/N4r0Bs/ByeByeLogger"
-
-[classifiers]
-License :: OSI Approved :: MIT License
-Operating System :: OS Independent
-Programming Language :: Python :: 3
-Programming Language :: Python :: 3.7
-Programming Language :: Python :: 3.8
-Programming Language :: Python :: 3.9
-Programming Language :: Python :: 3.10
-Programming Language :: Python :: 3.11
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3.",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",]
 
 dynamic = ["dependencies"]
 
 [tool.setuptools.dynamic]
-dependencies = {file = "requirements.txt"}
+dependencies = {file = ["requirements.txt"]}
 
-[options.packages.find]
-where=["src"]
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.urls]
+"Homepage" = "https://github.com/N4r0Bs/ByeByeLogger"
+"Repository" = "https://github.com/N4r0Bs/ByeByeLogger"
