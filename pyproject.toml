@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+write_to = "src/byebyelogger/_version.py"
+
+[project]
+name = "byebyelogger"
+version = "0.1.0"
+description = "A simple, yet powerful Python logging library that makes you say goodbye to your standard logger."
+authors = [
+    {name = "Aleksa Lukic", email = "aleksalukic92@web.de"},
+]
+readme = "README.md"
+license = "MIT"
+homepage = "https://github.com/N4r0Bs/ByeByeLogger"
+repository = "https://github.com/N4r0Bs/ByeByeLogger"
+
+[classifiers]
+License :: OSI Approved :: MIT License
+Operating System :: OS Independent
+Programming Language :: Python :: 3
+Programming Language :: Python :: 3.7
+Programming Language :: Python :: 3.8
+Programming Language :: Python :: 3.9
+Programming Language :: Python :: 3.10
+Programming Language :: Python :: 3.11
+
+dynamic = ["dependencies"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = "requirements.txt"}
+
+[options.packages.find]
+where=["src"]
