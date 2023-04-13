@@ -18,4 +18,4 @@ class ColorDecoratorFactory:
             return f"{self.wrappercolor}{Style.BRIGHT}{result}"
         return wrapper
     
-
+    

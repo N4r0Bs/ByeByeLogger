@@ -1,49 +1,55 @@
-from abc import ABC, abstractstaticmethod
-from style import BasicLogger, LogLevel
+from abc import ABC, abstractmethod
+from typing import Protocol
+
+from style import LogLevel, BaseLoggerPreset, LogStyle
 
 class AbstractLoggingRepository(ABC):
     
-    @abstractstaticmethod
+    @abstractmethod
     def DEBUG():
         pass
     
-    @abstractstaticmethod
+    @abstractmethod
     def INFO():
         pass
     
-    @abstractstaticmethod
+    @abstractmethod
     def WARNING():
         pass
 
-    @abstractstaticmethod
+    @abstractmethod
     def ERROR():
         pass
     
-    @abstractstaticmethod
+    @abstractmethod
     def CRITICAL():
         pass
 
 
+class LogMessageProcessor(Protocol):
+    def add(self, log_level: LogLevel, msg:str):
+        pass
+
 
 class LogRepository(AbstractLoggingRepository):
-    logger = BasicLogger()
 
-    @staticmethod
-    def DEBUG(msg: str):
-        LogRepository.logger.add(LogLevel.DEBUG, msg)
+    def __init__(self, logging: LogMessageProcessor):
+        self.logging = logging
 
-    @staticmethod
-    def INFO(msg: str):
-        LogRepository.logger.add(LogLevel.INFO, msg)
+    def DEBUG(self, msg: str):
+        self.logging.add(LogLevel.DEBUG, msg)
 
-    @staticmethod
-    def WARNING(msg: str):
-        LogRepository.logger.add(LogLevel.WARNING, msg)
+    def INFO(self, msg: str):
+        self.logging.add(LogLevel.INFO, msg)
 
-    @staticmethod
-    def ERROR(msg: str):
-        LogRepository.logger.add(LogLevel.ERROR, msg)
+    def WARNING(self, msg: str):
+        self.logging.add(LogLevel.WARNING, msg)
 
-    @staticmethod
-    def CRITICAL(msg: str):
-        LogRepository.logger.add(LogLevel.CRITICAL, msg)
+    def ERROR(self, msg: str):
+        self.logging.add(LogLevel.ERROR, msg)
+
+    def CRITICAL(self, msg: str):
+        self.logging.add(LogLevel.CRITICAL, msg)
+
+
+simple = BaseLoggerPreset(datetime_style=LogStyle.SQUARE_BRACKETS, level_style=LogStyle.SQUARE_BRACKETS, message_style=LogStyle.SQUARE_BRACKETS)
