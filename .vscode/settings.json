@@ -1,0 +1,8 @@
+{
+    "python.analysis.extraPaths": [
+        "./src/byebyelogger",
+        "./src/byebyelogger/core",
+        "./src/byebyelogger/presets",
+        "./src/byebyelogger/style",
+    ]
+}

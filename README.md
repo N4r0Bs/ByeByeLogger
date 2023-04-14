@@ -10,3 +10,19 @@ pip install byebyelogger
 ```
 
 ```
+
+```
+ByeByeLogger
+├─ src
+│  ├─ byebyelogger
+│  │  ├─ abstract.py
+│  │  ├─ byebyelogger.py
+│  │  ├─ colorizer.py
+│  │  ├─ repository.py
+│  │  ├─ style.py
+│  │  └─ __init__.py
+│  └─ __init__.py
+└─ tests
+   └─ test.py
+
+```

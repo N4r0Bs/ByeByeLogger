@@ -30,7 +30,7 @@ dynamic = ["dependencies"]
 dependencies = {file = ["requirements.txt"]}
 
 [tool.setuptools.packages.find]
-where = ["src"]
+where = ["src/byebyelogger"]
 
 [project.urls]
 "Homepage" = "https://github.com/N4r0Bs/ByeByeLogger"
