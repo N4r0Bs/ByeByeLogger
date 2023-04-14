@@ -26,3 +26,31 @@ ByeByeLogger
    └─ test.py
 
 ```
+```
+ByeByeLogger
+├─ .gitignore
+├─ pyproject.toml
+├─ README.md
+├─ reqiurements.txt
+├─ src
+│  ├─ byebyelogger
+│  │  ├─ core
+│  │  │  ├─ abstract.py
+│  │  │  ├─ byebyelogger.py
+│  │  │  ├─ repository.py
+│  │  │  └─ __init__.py
+│  │  ├─ presets
+│  │  │  ├─ custom.py
+│  │  │  ├─ datascience.py
+│  │  │  ├─ default.py
+│  │  │  └─ __init__.py
+│  │  ├─ style
+│  │  │  ├─ colorizer.py
+│  │  │  ├─ constants.py
+│  │  │  └─ __init__.py
+│  │  └─ __init__.py
+│  └─ __init__.py
+└─ tests
+   └─ test.py
+
+```
