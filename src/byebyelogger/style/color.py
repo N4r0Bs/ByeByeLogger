@@ -1,19 +1,22 @@
 import colorama
 from colorama import Fore, Style
+
 colorama.init(autoreset=True)
+
 
 class Color:
     def __init__(self, color: str):
         self.color = color.upper()
-        
+
         if self.color in Fore.__dict__:
             self.wrappercolor = Fore.__dict__[self.color]
         else:
-            raise ValueError(f"Invalid color '{color}'. Choose a valid color from colorama.Fore.")
-    
+            raise ValueError(
+                f"Invalid color '{color}'. Choose a valid color from colorama.Fore."
+            )
+
     def __call__(self, string: str) -> str:
         return f"{self.wrappercolor}{Style.BRIGHT}{string}{Fore.RESET}"
-
 
 
 BLACK = Color("BLACK")
