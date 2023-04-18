@@ -5,7 +5,7 @@ with open("src/README.md", "r") as f:
 
 setup(
     name="ByeByeLogger",
-    version="2.1.6",
+    version="3.0.0",
     description="A simple, yet powerful Python logging library that makes you say goodbye to your standard logger.",
     package_dir={"": "src"},
     packages=find_packages(where="src"),
