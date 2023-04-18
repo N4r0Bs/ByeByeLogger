@@ -1,78 +1,73 @@
-from dataclasses import dataclass, field
-from typing import Callable, Dict, List, Protocol, Tuple, Union
+from typing import List, Tuple, Callable, Union
 
-from style.color import (
-    LIGHTCYAN_EX,
-    LIGHTMAGENTA_EX,
-    LIGHTRED_EX,
-    LIGHTYELLOW_EX,
-    RED,
-)
-from style.format import SQUARE_BRACKETS
+from byebyelogger.core.configuration import Logger, LoggerConfiguration
 
 
-@dataclass
-class LoggerConfiguration:
-    attributes: Dict[str, Tuple[Union[str, Callable], str]] = field(
-        default_factory=dict
-    )
-    order: List[str] = field(default_factory=list)
-    separator: str = " - "
-    default_style: str = ""
+def single_logger(color: str, level: str, format: str = None) -> Logger:
+    """
+    Creates a new logger instance with the specified level color, level name, and optional format.
 
-    def __post_init__(self):
-        if self.default_style:
-            self.set_style(self.default_style)
+    Args:
+        color (str): The color to be applied to the level name. To import colors, for example, use:
+                     "from byebyelogger.style.color import RED".
+        level (str): The name of the logging level (e.g., "INFO", "WARNING").
+        format (str, optional): The format to be applied to the level name. Defaults to None, which means
+                                the LoggerConfiguration's default_style will be used. To import formats, for
+                                example, use: "from byebyelogger.style.format import SQUARE_BRACKETS".
 
-    def add(self, value: Union[str, Callable], style: str = None):
-        name = str(value)
-        if style is None:
-            style = SQUARE_BRACKETS  # setzt automatisch Square Brackets als Style
-        self.attributes[name] = (value, style)
-        self.order.append(name)
+    Returns:
+        Logger: A new logger instance with the specified configuration.
 
-    def set_order(self, order: List[str]):
-        self.order = order
+    Example:
+        color = RED
+        level = "INFO"
+        format = SQUARE_BRACKETS
 
-    def set_style(self, style: str):
-        self.default_style = style
+        The resulting logger output will look like:
 
-    def apply_style(self, style: str, text: str):
-        return style.format(text)
-
-    def log(self):
-        formatted_attributes = []
-        for attr in self.order:
-            value, style = self.attributes[attr]
-            if callable(value):
-                value = value()
-            formatted_value = self.apply_style(
-                style, str(value)
-            )  # konvertiert Wert zu String
-            formatted_attributes.append(formatted_value)
-
-        log_entry = self.separator.join(formatted_attributes)
-        print(log_entry, end=" ")
-
-
-class Preset(Protocol):
-    def log(self):
-        pass
-
-
-class Logger:
-    def __init__(self, logging: Preset):
-        self.logging = logging
-
-    def log(self, msg: str):
-        self.logging.log()
-        print(msg)
-
-
-def create_logger(level_color: str, level_name: str, style: str = None) -> Logger:
+        -> [INFO] Example message
+    """
     configuration = LoggerConfiguration()
-    configuration.add(level_color(level_name), style)
+    configuration.add(color(level), format)
+    return Logger(configuration)
+
+def nested_logger(components: List[Tuple[Union[str, Callable], str]]) -> Logger:
+    """
+    Creates a custom logger instance with a tailored format based on the input components.
+
+    This function allows you to configure a logger with a unique format by providing a list of components,
+    including colors, level, callables, and optional styles. The output's appearance depends on the 
+    order and composition of the components.
+
+    Args:
+        components (List[Tuple[Union[str, Callable], str]]): A list of tuples, where each tuple contains
+            a component and an optional style. Components can include colors, level, and callables.
+
+    Returns:
+        Logger: A logger instance configured with the specified components.
+
+    Example:
+        components = [
+            (timestamp_func(), SQUARE_BRACKETS),
+            ("SQLITE", SQUARE_BRACKETS),
+            (LIGHTCYAN_EX("INFO"), None),
+        ]
+
+        The resulting logger output will look like:
+
+        -> [2000-01-11 11:11:11] [SQLITE] INFO Example
+
+    """
+
+    configuration = LoggerConfiguration()
+    
+    for component in components:
+        configuration.add(component)
+    
     return Logger(configuration)
 
 
-__all__ =  ["create_logger"]
+__all__ =  ["single_logger", "nested_logger"]
+
+
+
