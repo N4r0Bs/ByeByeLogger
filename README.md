@@ -40,7 +40,7 @@ def timestamp_func():
     return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 components = [
-    (timestamp_func, SQUARE_BRACKETS),
+    (lambda:timestamp_func(), SQUARE_BRACKETS),
     ("SQLITE", SQUARE_BRACKETS),
     (LIGHTCYAN_EX("INFO"), None),
 ]
